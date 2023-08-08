@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  rnd-sonar:
+    image: sonarqube:lts-community
+    container_name: rnd-sonarqube
+    platform: linux/arm64
+    environment:
+      - sonar.forceAuthentication=false
+    ports:
+      - "9001:9000"

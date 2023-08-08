@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  rnd-rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rnd-rabbitmq
+    restart: on-failure
+    environment:
+      - RABBITMQ_DEFAULT_USER=rnd
+      - RABBITMQ_DEFAULT_PASS=rndPassword
+    ports:
+      - "15672:15672"

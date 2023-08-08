@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  rnd-mysql:
+    image: mysql:8.0.27
+    container_name: rnd-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret-pwd
+      MYSQL_USER: rnd
+      MYSQL_PASSWORD: rndPassord
+      MYSQL_DATABASE: rnd
+    ports:
+      - "3306:3306"

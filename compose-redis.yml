@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  rnd-redis:
+    image: redis:alpine
+    container_name: rnd-redis
+    restart: on-failure
+    # volumes:
+    #  - $PWD/configs/redis/redis.conf:/usr/local/etc/redis.conf
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    command: redis-server --requirepass rndPassword
+    ports:
+      - "6379:6379"

@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  asterisk:
+    image: rnd/asterisk:latest
+    volumes:
+      - ./asterisk/config:/etc/asterisk
+    #network_mode: "host"
+    ports:
+      - "8088:8088"        # ARI port
+      - "5060:5060/udp"    # SIP UDP port
+      - "5060:5060"        # SIP TCP port
+      - "5061:5061"        # SIP TLS port
+      - "5160:5160/udp"    #
+      - "5161:5161"        #
+      - "4569:4569/udp"    # IAX port
+      - "10000-10050:10000-10050/udp"    # RTP ports

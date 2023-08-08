@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  rnd-postgres:
+    container_name: rnd-postgres
+    image: postgres:14.5
+    volumes:
+      - ./postgres/sql/init-sql.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    environment:
+      - POSTGRES_USER=rnd
+      - POSTGRES_DB=rnd
+      - POSTGRES_PASSWORD=rndpassword
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5432:5432"
+  ucc-keycloak:
+    container_name: rnd-keycloak
+    image: quay.io/keycloak/keycloak:19.0.1
+    volumes:
+      - ./keycloak/realm-config:/opt/keycloak/data/import
+    command: ['start-dev --import-realm']
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: Pa55w0rd
+      KC_DB: postgres
+      KC_FEATURES: scripts
+      KC_DB_USERNAME: rnd
+      KC_DB_PASSWORD: rndpassword
+      KC_DB_SCHEMA: keycloak
+      KC_DB_URL: jdbc:postgresql://ucc-postgres:5432/dcrm
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "ssl=true"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - rnd-postgres
+# docker run --name keycloak --net keycloak-network -p 9080:9080 -e DB_VENDOR=postgres -e DB_USER=postgres -e DB_PASSWORD=postgres123 -e DB_URL=jdbc:postgresql://172.18.0.1:5432/backend -e DB_DATABASE=backend -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin repka.kaspi.kz/jboss/keycloak

@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  rnd-kamailio:
+    container_name: kamailio
+    image: rnd/kamailio:latest
+    ports:
+      - "8088:8088"
+      - "10000-10050:10000-10050/udp"    # RTP ports

@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  rnd-zipkin:
+    container_name: rnd-zipkin
+    platform: linux/arm64
+    image: openzipkin/zipkin:2.23
+    ports:
+      - "9411:9411"
