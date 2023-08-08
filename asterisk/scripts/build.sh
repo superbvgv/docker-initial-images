@@ -1,7 +1,7 @@
 #!/bin/sh -e
-
 cd asterisk-${ASTERISK_VERSION}
 ./configure --with-jansson-bundled
+
 make
 make install
 make samples
